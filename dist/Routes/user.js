@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+// const express = require('express');
+const express_1 = require("express");
+const router = (0, express_1.Router)();
+const user_1 = __importDefault(require("../Controller/user"));
+const auth_1 = __importDefault(require("../middleware/auth"));
+const expense_1 = __importDefault(require("../Controller/expense"));
+// const router = express.Router();
+router.post('/signup', user_1.default.signUp);
+router.post('/login', user_1.default.login);
+router.post('/addexpense', auth_1.default.authenticate, expense_1.default.addExpense);
+router.get('/getexpenses', auth_1.default.authenticate, expense_1.default.getexpenses);
+router.delete('/deleteexpense/:expenseid', auth_1.default.authenticate, expense_1.default.deleteexpense);
+router.get('/checkPremium', auth_1.default.authenticate, user_1.default.checkPremium);
+router.get('/download', auth_1.default.authenticate, expense_1.default.download);
+// module.exports = router;
+exports.default = router;
